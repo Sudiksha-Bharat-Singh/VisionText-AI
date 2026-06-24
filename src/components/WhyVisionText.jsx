@@ -1,66 +1,124 @@
 import React from 'react';
-import { Target, Zap, ShieldCheck, Layers } from 'lucide-react';
+import { Upload, Sliders, Cpu, Download, Target, Lock, Zap, Folder, ArrowRight } from 'lucide-react';
 
 export default function WhyVisionText() {
+  const steps = [
+    {
+      num: '1. Upload Image',
+      desc: 'Upload any image or document you want to extract text from.',
+      icon: Upload,
+      bg: 'bg-indigo-50 border-indigo-100 text-indigo-500',
+    },
+    {
+      num: '2. Preprocess Image',
+      desc: 'We enhance and preprocess the image to improve accuracy.',
+      icon: Sliders,
+      bg: 'bg-emerald-50 border-emerald-100 text-emerald-500',
+    },
+    {
+      num: '3. OCR Recognition',
+      desc: 'Our AI OCR engine reads the text from the image.',
+      icon: Cpu,
+      bg: 'bg-sky-50 border-sky-100 text-sky-500',
+    },
+    {
+      num: '4. Get Results',
+      desc: 'View, copy, and download the extracted text.',
+      icon: Download,
+      bg: 'bg-pink-50 border-pink-100 text-pink-500',
+    },
+  ];
+
   const features = [
     {
-      title: 'Accuracy',
-      desc: 'Accuracy slewbx to deccuenreseo and accuracy.',
+      title: 'Ultra Accurate',
+      desc: 'Advanced OCR for best results',
       icon: Target,
-      color: 'text-brand-500 bg-brand-50 border-brand-100',
+      bg: 'bg-blue-50 border-blue-100 text-blue-600',
     },
     {
-      title: 'Speed',
-      desc: 'Speed process escert, speed and entecrial vend.',
+      title: 'Privacy First',
+      desc: 'We never store your data',
+      icon: Lock,
+      bg: 'bg-emerald-50 border-emerald-100 text-emerald-600',
+    },
+    {
+      title: 'Lightning Fast',
+      desc: 'Get results in seconds',
       icon: Zap,
-      color: 'text-amber-500 bg-amber-50 border-amber-100',
+      bg: 'bg-sky-50 border-sky-100 text-sky-600',
     },
     {
-      title: 'Privacy',
-      desc: 'Privacy. Promots moxs privacy volooss acsess and privacy.',
-      icon: ShieldCheck,
-      color: 'text-emerald-500 bg-emerald-50 border-emerald-100',
-    },
-    {
-      title: 'Multi-format',
-      desc: 'Multi-format. Multihime esch contest, use, atifimote and mulorformst use.',
-      icon: Layers,
-      color: 'text-indigo-500 bg-indigo-50 border-indigo-100',
+      title: 'Multi-Purpose',
+      desc: 'Works for notes, docs, receipts & more',
+      icon: Folder,
+      bg: 'bg-amber-50 border-amber-100 text-amber-600',
     },
   ];
 
   return (
-    <div className="max-w-6xl mx-auto px-4 mb-24 text-left relative z-10">
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
-        
-        {/* Left explanation text block */}
-        <div className="lg:col-span-4 flex flex-col items-start justify-center">
-          <h2 className="text-2xl sm:text-3xl font-extrabold text-navy-900 tracking-tight">Why VisionText AI</h2>
-          <p className="text-slate-500 text-sm mt-3 leading-relaxed max-w-sm">
-            Premium features can eraser accuracy, accuracy, iron and privacy, eoofivoverstea earda.
-          </p>
+    <div className="max-w-7xl mx-auto px-4 py-8 relative z-10 grid grid-cols-1 xl:grid-cols-12 gap-8">
+      
+      {/* 1. How It Works Section (Left half - 7 cols) */}
+      <div className="xl:col-span-7 flex flex-col text-left">
+        <div className="mb-6">
+          <h3 className="text-sm font-black text-navy-950 uppercase tracking-widest">How It Works</h3>
+          <div className="w-10 h-0.5 bg-indigo-500 mt-1" />
         </div>
 
-        {/* 4 Feature cards grid */}
-        <div className="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 items-start">
+          {steps.map((step, idx) => {
+            const Icon = step.icon;
+            return (
+              <div key={step.num} className="flex flex-col items-start relative group">
+                {/* Badge Icon */}
+                <div className={`w-11 h-11 rounded-2xl border flex items-center justify-center mb-3 shadow-sm ${step.bg}`}>
+                  <Icon className="w-5 h-5" />
+                </div>
+                
+                <h4 className="text-[11px] font-black text-navy-900 leading-tight mb-1">{step.num}</h4>
+                <p className="text-[9.5px] text-slate-500 leading-relaxed font-bold">{step.desc}</p>
+                
+                {/* Horizontal flow arrow connecting items */}
+                {idx < 3 && (
+                  <div className="hidden sm:block absolute right-[-10px] top-[18px] text-slate-300">
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* 2. Why VisionText AI Section (Right half - 5 cols) */}
+      <div className="xl:col-span-5 flex flex-col text-left">
+        <div className="mb-6">
+          <h3 className="text-sm font-black text-navy-950 uppercase tracking-widest">Why VisionText AI?</h3>
+          <div className="w-10 h-0.5 bg-indigo-500 mt-1" />
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {features.map((feat) => {
             const Icon = feat.icon;
             return (
               <div
                 key={feat.title}
-                className="glass-card rounded-2xl p-5 border border-white/50 shadow-premium hover:shadow-floating transition-all duration-300 hover:-translate-y-1"
+                className="bg-white border border-slate-200/50 rounded-2xl p-4 flex items-center gap-3.5 shadow-sm hover:shadow-md transition duration-200"
               >
-                <div className={`w-9 h-9 rounded-xl border flex items-center justify-center mb-4 ${feat.color}`}>
+                <div className={`w-10 h-10 rounded-xl border flex items-center justify-center shadow-sm flex-shrink-0 ${feat.bg}`}>
                   <Icon className="w-4.5 h-4.5" />
                 </div>
-                <h3 className="text-sm font-bold text-navy-900 mb-2">{feat.title}</h3>
-                <p className="text-[11px] text-slate-500 leading-normal font-medium">{feat.desc}</p>
+                <div className="flex flex-col">
+                  <h4 className="text-xs font-black text-navy-900 leading-tight">{feat.title}</h4>
+                  <p className="text-[9.5px] text-slate-400 font-semibold mt-0.5">{feat.desc}</p>
+                </div>
               </div>
             );
           })}
         </div>
-
       </div>
+
     </div>
   );
 }
