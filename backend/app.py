@@ -9,8 +9,13 @@ from PIL import Image
 import pytesseract
 from dotenv import load_dotenv
 
-# Load environment variables
-load_dotenv()
+# Load environment variables robustly from the backend folder
+backend_dir = os.path.dirname(os.path.abspath(__file__))
+dotenv_path = os.path.join(backend_dir, '.env')
+if os.path.exists(dotenv_path):
+    load_dotenv(dotenv_path)
+else:
+    load_dotenv()
 
 app = Flask(__name__)
 # Enable CORS so the React app can communicate with this API
@@ -18,6 +23,12 @@ CORS(app)
 
 # Helper to find and configure Tesseract executable on Windows
 def configure_tesseract():
+    # Configure TESSDATA_PREFIX if defined
+    tessdata_prefix = os.getenv("TESSDATA_PREFIX")
+    if tessdata_prefix:
+        os.environ["TESSDATA_PREFIX"] = tessdata_prefix
+        print(f"[*] TESSDATA_PREFIX configured: {tessdata_prefix}")
+
     # 1. Check env variable
     tess_env_path = os.getenv("TESSERACT_PATH")
     if tess_env_path and os.path.exists(tess_env_path):
@@ -35,6 +46,13 @@ def configure_tesseract():
         if os.path.exists(path):
             pytesseract.pytesseract.tesseract_cmd = path
             print(f"[*] Tesseract configured automatically at: {path}")
+            # Try to auto-set TESSDATA_PREFIX if not already set
+            if not os.getenv("TESSDATA_PREFIX"):
+                tessdata_dir = os.path.dirname(path)
+                tessdata_subdir = os.path.join(tessdata_dir, "tessdata")
+                if os.path.exists(tessdata_subdir):
+                    os.environ["TESSDATA_PREFIX"] = tessdata_dir
+                    print(f"[*] TESSDATA_PREFIX set automatically to: {tessdata_dir}")
             return True
 
     # 3. Default (assumes it is in PATH)
@@ -91,9 +109,21 @@ def run_ocr():
             extracted_text = pytesseract.image_to_string(pil_img).strip()
         except Exception as tess_err:
             print(f"Tesseract Execution Error: {tess_err}")
+            current_cmd = getattr(pytesseract.pytesseract, "tesseract_cmd", "tesseract")
+            error_msg = (
+                f"Tesseract OCR engine failed to execute. "
+                f"Details: {str(tess_err)}. "
+                f"Currently configured path: '{current_cmd}'. "
+                f"Expected installation paths on Windows are: "
+                f"1) 'C:\\Program Files\\Tesseract-OCR\\tesseract.exe' "
+                f"2) 'C:\\Program Files (x86)\\Tesseract-OCR\\tesseract.exe'. "
+                f"To fix this, please: "
+                f"1. Download and run the Tesseract installer from: https://github.com/UB-Mannheim/tesseract/wiki "
+                f"2. If installed in a custom location, add TESSERACT_PATH to your backend/.env file."
+            )
             return jsonify({
                 "success": False,
-                "error": "Tesseract OCR binary not found or failed to execute. Please install Tesseract (https://github.com/UB-Mannheim/tesseract/wiki) and configure TESSERACT_PATH."
+                "error": error_msg
             }), 500
 
         # Calculate word count and character count
