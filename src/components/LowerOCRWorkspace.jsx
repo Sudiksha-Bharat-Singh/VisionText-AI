@@ -3,7 +3,7 @@ import { UploadCloud, CheckCircle2, ArrowRight, Sparkles, Check, Copy, Download,
 
 export default function LowerOCRWorkspace() {
   return (
-    <div id="workspace" className="max-w-7xl mx-auto px-4 py-12 lg:py-16 text-left relative z-10">
+    <div id="workspace" className="max-w-7xl mx-auto px-4 py-12 lg:py-16 text-left relative z-10 scroll-mt-24">
       
       {/* Title Header */}
       <div className="text-center mb-10">

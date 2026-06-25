@@ -60,7 +60,7 @@ export default function WhyVisionText() {
     <div className="max-w-7xl mx-auto px-4 py-12 lg:py-16 relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14">
       
       {/* 1. How It Works Section (Left half - 6 cols) */}
-      <div className="lg:col-span-6 flex flex-col text-left">
+      <div id="how-it-works" className="lg:col-span-6 flex flex-col text-left scroll-mt-24">
         <div className="mb-6">
           <h3 className="text-sm font-black text-navy-950 uppercase tracking-widest">How It Works</h3>
           <div className="w-10 h-0.5 bg-indigo-500 mt-1" />
@@ -92,7 +92,7 @@ export default function WhyVisionText() {
       </div>
 
       {/* 2. Why VisionText AI Section (Right half - 6 cols) */}
-      <div className="lg:col-span-6 flex flex-col text-left">
+      <div id="tech-stack" className="lg:col-span-6 flex flex-col text-left scroll-mt-24">
         <div className="mb-6">
           <h3 className="text-sm font-black text-navy-950 uppercase tracking-widest">Why VisionText AI?</h3>
           <div className="w-10 h-0.5 bg-indigo-500 mt-1" />

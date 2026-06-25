@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function Footer() {
   return (
-    <footer className="border-t border-slate-200/60 bg-white/40 backdrop-blur-sm relative z-10 py-8 max-w-7xl mx-auto mt-12 rounded-t-2xl">
+    <footer id="about" className="border-t border-slate-200/60 bg-white/40 backdrop-blur-sm relative z-10 py-8 max-w-7xl mx-auto mt-12 rounded-t-2xl scroll-mt-24">
       <div className="px-6 flex flex-col md:flex-row items-center justify-between gap-6">
         
         {/* Left Side Logo & Tagline */}
