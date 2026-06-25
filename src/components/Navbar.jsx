@@ -1,7 +1,7 @@
 import React from 'react';
 import { Sun, Play, Upload } from 'lucide-react';
 
-export default function Navbar() {
+export default function Navbar({ onUploadClick, onDemoClick }) {
   return (
     <nav className="flex items-center justify-between px-6 py-4 bg-white/70 backdrop-blur-md border-b border-slate-200/50 relative z-30 max-w-7xl mx-auto rounded-2xl shadow-sm mt-4">
       {/* Logo */}
@@ -39,13 +39,13 @@ export default function Navbar() {
         </button>
 
         {/* Try Demo */}
-        <button className="inline-flex items-center gap-1.5 text-xs font-bold text-purple-600 hover:text-purple-700 px-4 py-2.5 rounded-xl border border-purple-200 hover:border-purple-300 bg-purple-50/30 hover:bg-purple-50 transition">
+        <button onClick={onDemoClick} className="inline-flex items-center gap-1.5 text-xs font-bold text-purple-600 hover:text-purple-700 px-4 py-2.5 rounded-xl border border-purple-200 hover:border-purple-300 bg-purple-50/30 hover:bg-purple-50 transition">
           <Play className="w-3.5 h-3.5 fill-current" />
           Try Demo
         </button>
 
         {/* Upload Image */}
-        <button className="inline-flex items-center gap-1.5 text-xs font-bold text-white bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 px-4.5 py-2.5 rounded-xl shadow-md hover:shadow-lg transition">
+        <button onClick={onUploadClick} className="inline-flex items-center gap-1.5 text-xs font-bold text-white bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 px-4.5 py-2.5 rounded-xl shadow-md hover:shadow-lg transition">
           <Upload className="w-3.5 h-3.5" />
           Upload Image
         </button>

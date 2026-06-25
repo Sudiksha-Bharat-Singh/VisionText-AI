@@ -1,7 +1,7 @@
 import React from 'react';
 import { Sparkles, Upload, Play, Target, Shield, Zap, Layers, ArrowRight, Check } from 'lucide-react';
 
-export default function HeroSection() {
+export default function HeroSection({ onUploadClick, onDemoClick }) {
   return (
     <div id="home" className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center max-w-7xl mx-auto px-4 py-16 lg:py-20 relative scroll-mt-24">
       
@@ -37,11 +37,11 @@ export default function HeroSection() {
 
         {/* Action Buttons */}
         <div className="flex flex-wrap items-center gap-3.5 mb-14 w-full">
-          <button className="inline-flex items-center gap-2 text-xs font-bold text-white bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 px-6 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 hover:-translate-y-0.5">
+          <button onClick={onUploadClick} className="inline-flex items-center gap-2 text-xs font-bold text-white bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 px-6 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 hover:-translate-y-0.5">
             <Upload className="w-4 h-4" />
             Upload Image
           </button>
-          <button className="inline-flex items-center gap-2 text-xs font-bold text-purple-600 hover:text-purple-700 px-6 py-4 rounded-xl border border-purple-200 hover:border-purple-300 bg-purple-50/20 hover:bg-purple-50 transition-all duration-200 hover:-translate-y-0.5 shadow-sm">
+          <button onClick={onDemoClick} className="inline-flex items-center gap-2 text-xs font-bold text-purple-600 hover:text-purple-700 px-6 py-4 rounded-xl border border-purple-200 hover:border-purple-300 bg-purple-50/20 hover:bg-purple-50 transition-all duration-200 hover:-translate-y-0.5 shadow-sm">
             <Play className="w-4 h-4 fill-current" />
             Try Demo
           </button>
