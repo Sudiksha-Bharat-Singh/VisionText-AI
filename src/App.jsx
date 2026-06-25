@@ -30,7 +30,8 @@ export default function App() {
         setFile({
           name: selectedFile.name,
           size: (selectedFile.size / (1024 * 1024)).toFixed(2) + " MB",
-          previewUrl: event.target.result
+          previewUrl: event.target.result,
+          rawFile: selectedFile // Store raw file object to upload to backend
         });
         
         // Auto scroll to workspace
@@ -77,24 +78,55 @@ export default function App() {
   };
 
   const handleRunOcr = () => {
-    if (!file) return;
+    if (!file || !file.rawFile) return;
     if (isDemo) return;
     setIsProcessing(true);
     setIsExtracted(false);
+    setExtractedText("");
     
-    // Simulate OCR processing for 1.2 seconds
-    setTimeout(() => {
-      setIsProcessing(false);
-      setIsExtracted(true);
-      setExtractedText(
-        `VisionText AI - OCR Result\n\nSuccessfully processed: ${file.name}\n\n[Extracted Text Content]\nThis is a simulation of the extracted text from your uploaded document. The OCR engine successfully analyzed the character lines, resolved key document blocks, and extracted editable text.\n\nThank you for using VisionText AI!`
-      );
-      setStats({
-        confidence: "98.5%",
-        words: "46",
-        chars: "298"
+    const formData = new FormData();
+    formData.append("image", file.rawFile);
+
+    fetch("/api/ocr", {
+      method: "POST",
+      body: formData
+    })
+      .then((res) => {
+        if (!res.ok) {
+          return res.json().then((data) => {
+            throw new Error(data.error || `Server error: ${res.status}`);
+          });
+        }
+        return res.json();
+      })
+      .then((data) => {
+        if (data.success) {
+          setIsExtracted(true);
+          setExtractedText(data.extractedText);
+          setStats({
+            confidence: data.confidenceScore + "%",
+            words: String(data.wordCount),
+            chars: String(data.characterCount)
+          });
+        } else {
+          throw new Error(data.error || "OCR extraction failed.");
+        }
+      })
+      .catch((err) => {
+        console.error("OCR API error:", err);
+        setIsExtracted(true);
+        setExtractedText(
+          `[OCR Error]\n\nFailed to extract text from your uploaded image.\nDetails: ${err.message}\n\nTroubleshooting tips:\n1. Make sure the local python backend is running (app.py).\n2. Verify that Tesseract OCR is installed on your machine and its path is configured in backend/.env.`
+        );
+        setStats({
+          confidence: "ERROR",
+          words: "0",
+          chars: "0"
+        });
+      })
+      .finally(() => {
+        setIsProcessing(false);
       });
-    }, 1200);
   };
 
   const handleClear = () => {
