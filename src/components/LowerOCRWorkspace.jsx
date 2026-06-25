@@ -165,11 +165,18 @@ export default function LowerOCRWorkspace({
                         <p className="font-medium text-slate-500">1. AI is intelligence...</p>
                         <p className="font-medium text-slate-500">2. It enables systems...</p>
                       </div>
+                    ) : stats.confidence === "ERROR" ? (
+                      <div className="text-[10px] text-rose-600 leading-snug pl-2 flex-grow pt-2 select-none pointer-events-none">
+                        <p className="font-bold text-rose-700 text-[11px] mb-1">Extraction Failed</p>
+                        <p className="font-medium text-rose-500">See error details in</p>
+                        <p className="font-medium text-rose-500">the Results panel.</p>
+                      </div>
                     ) : (
-                      <div className="text-[10px] text-slate-600 leading-snug pl-2 flex-grow pt-2 select-none pointer-events-none">
+                      <div className="text-[10px] text-slate-600 leading-snug pl-2 flex-grow pt-2 select-none pointer-events-none overflow-hidden max-h-[160px]">
                         <p className="font-bold text-indigo-600 text-[11px] mb-1">Digitized Text Block</p>
-                        <p className="font-medium text-slate-500">Characters recognized.</p>
-                        <p className="font-medium text-slate-500">Formatting preserved.</p>
+                        <p className="font-medium text-slate-500 italic whitespace-pre-wrap">
+                          {extractedText ? (extractedText.length > 100 ? extractedText.substring(0, 100) + "..." : extractedText) : "No text extracted."}
+                        </p>
                       </div>
                     )
                   ) : (
