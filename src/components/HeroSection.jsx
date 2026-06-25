@@ -3,7 +3,7 @@ import { Sparkles, Upload, Play, Target, Shield, Zap, Layers, ArrowRight, Check 
 
 export default function HeroSection() {
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center max-w-7xl mx-auto px-4 py-16 lg:py-20 relative">
+    <div id="home" className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center max-w-7xl mx-auto px-4 py-16 lg:py-20 relative">
       
       {/* Background Dots Grid Overlay */}
       <div className="absolute left-[-20px] top-[40px] w-24 h-24 text-slate-200/50 -z-10 select-none pointer-events-none opacity-60">

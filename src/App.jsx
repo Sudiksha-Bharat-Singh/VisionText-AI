@@ -8,7 +8,7 @@ import Footer from './components/Footer';
 
 export default function App() {
   return (
-    <div className="min-h-screen relative overflow-hidden bg-[#fbfbfd] text-navy-800 antialiased font-sans pb-4">
+    <div className="min-h-screen relative overflow-x-hidden bg-[#fbfbfd] text-navy-800 antialiased font-sans pb-4">
       
       {/* Soft Aurora Pastel Gradient Blobs in the background */}
       <div className="absolute top-[-10%] left-[-10%] w-[600px] h-[600px] rounded-full bg-indigo-200/20 bg-aurora-blob animate-blob-1 pointer-events-none" />
