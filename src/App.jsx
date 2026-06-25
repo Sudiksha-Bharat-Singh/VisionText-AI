@@ -1,6 +1,7 @@
 import React from 'react';
 import Navbar from './components/Navbar';
 import HeroSection from './components/HeroSection';
+import LeftToolRail from './components/LeftToolRail';
 import LowerOCRWorkspace from './components/LowerOCRWorkspace';
 import WhyVisionText from './components/WhyVisionText';
 import Footer from './components/Footer';
@@ -22,7 +23,10 @@ export default function App() {
         <Navbar />
 
         {/* Hero Section */}
-        <HeroSection />
+        <div className="relative">
+          <LeftToolRail />
+          <HeroSection />
+        </div>
 
         {/* Lower Main OCR Workspace Section */}
         <LowerOCRWorkspace />
